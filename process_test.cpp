@@ -6,39 +6,35 @@
 #include <memory>
 #include "Process.hpp"
 
-int main(int argc, char *argv[])
-{
-    using namespace std;
-    std::vector<char*> args;
 
-    for(int nn=1; nn<argc; ++nn)
-    {
-	std::cerr << "Arg: " << argv[nn] << std::endl;
-	args.push_back(argv[nn]);
-    }
-    args.push_back( NULL );
+int main(int argc, char *argv[]) {
 
-    
-    string line;
-    string output;
+	using namespace std;
+	std::vector<std::string> args;
 
-    {
-	Process myproc(args,true);
-	sleep(5);
-    /* write/read test
-    for(int n=0; n<5; ++n) {
-	stringstream ss(line);
-	ss << "This is test " << n << endl;
-	line = ss.str();
-	cerr << "calling write with line=" << line << "END" << endl;
-	myproc.write(line);
-	output = myproc.read();
-	cerr << "output from process: " << output << "END" << endl;
-    }
-    */
+	for(int nn=1; nn<argc; ++nn) {
+		std::cerr << "Arg: " << argv[nn] << std::endl;
+		args.push_back(argv[nn]);
+	}
+
+	string output;
+
+	{
+		Process myproc(args,true);
+
+		for(int n=0; n<5; ++n) {
+			stringstream ss;
+			ss << "1+" << n << endl;
+			cerr << "calling write with line=" << ss.str() << "END" << endl;
+			myproc.write(ss.str());
+			output = myproc.read();
+			cerr << "output from process: " << output << "END" << endl;
+		}
+	}
 	cerr << "Process object destroyed" << endl;
-    }
-    cerr << "Program exiting.  Confirm child process has been cleaned up." << endl;
-    sleep(5);
-    return(EXIT_SUCCESS);
+	cerr << "Program exiting. Confirm child "
+			  "process has been cleaned up." << endl;
+
+	return 0;
 }
+

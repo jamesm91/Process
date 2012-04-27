@@ -1,0 +1,9 @@
+README
+
+This is a good object oriented design because it allows for the reuse of sections of code. I think the child fuction could pass a value when terminated to notify the parent that the child is done and then start collecting data and etc.
+
+
+
+
+
+
